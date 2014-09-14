@@ -7,7 +7,7 @@ from ..items import IspiderItem
 
 class BaiduSpider(scrapy.Spider):
     name = "baidu"
-    allowed_domains = ["baidu.com"]
+    allowed_domains = ["http://www.baidu.com/"]
     start_urls = (
         'http://www.baidu.com/',
     )
@@ -15,7 +15,7 @@ class BaiduSpider(scrapy.Spider):
     def parse(self, response):
         items = []
         item = IspiderItem()
-        item['title'] = unicode(response.xpath('/html/head/title/text()').extract()[0])
+        item['title'] = response.xpath('/html/head/title/text()').extract()[0].encode('utf-8')
         item['url'] = response.url
         items.append(item)
 
